@@ -54,7 +54,7 @@
       </tr>
       @endforeach
       @else
-      <h1>There are no merchants listed yet.</h1>
+      <h1>No merchant found.</h1>
       @endif
     </tbody>
   </table>

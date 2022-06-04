@@ -7,7 +7,7 @@
       </div>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
-          
+
             @if (count($migrations)>0)
               <thead>
                 <tr>
@@ -27,17 +27,17 @@
                   <form method="POST" action="/admin/migrations/{{ $migration->id }}">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
-                        <button type="submit" class="btn btn-sm btn-outline-danger" ><span data-feather="trash"></span></button>         
+                        <button type="submit" class="btn btn-sm btn-outline-danger" ><span data-feather="trash"></span></button>
                   </form>
                 </td>
               </tr>
               @endforeach
             @else
-                <h1>No Migration Yet</h1>
+                <h1>No migration found</h1>
             @endif
           </tbody>
         </table>
         {{ $migrations->links() }}
       </div>
-     
+
 @endsection

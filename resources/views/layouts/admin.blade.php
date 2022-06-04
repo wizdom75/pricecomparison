@@ -33,14 +33,14 @@
       <form method="get">
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{ url('/admin') }}">Admin Panel</a>
-      
+
         <input name="q" class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search" value="{{ Request::get('q') }}">
           <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
               <button class="btn btn-info" type="submit">Find</button>
             </li>
           </ul>
-      
+
     </nav>
   </form>
 <div class="container-fluid">
@@ -78,12 +78,12 @@
               Users
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class="nav-link {{ Request::is('admin/reports') || Request::is('admin/reports/*')?'active':'' }}" href="{{ url('/admin/reports') }}">
               <span data-feather="bar-chart-2"></span>
               Reports
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a class="nav-link {{ Request::is('admin/pages') || Request::is('admin/pages/*')?'active':'' }}" href="{{ url('/admin/pages') }}">
               <span data-feather="file"></span>
@@ -97,10 +97,14 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/logout') }}">
+            <a class="nav-link" onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">
               <span data-feather="log-out"></span>
               Logout
             </a>
+            <form id="logout-form" action="/logout" method="post">
+                @csrf
+            </form>
           </li>
         </ul>
 
@@ -126,12 +130,12 @@
             Bulk Products
           </a>
         </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="file-text"></span>
               Year-end sale
             </a>
-          </li>
+          </li> --}}
         </ul>
       </div>
     </nav>

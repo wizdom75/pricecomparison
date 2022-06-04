@@ -26,6 +26,9 @@ class SSHProductsController extends Controller
      */
     public function run($id)
     {
+        if (!$id || !is_numeric($id)) {
+            return 'No product feed to run';
+        }
         ini_set('max_execution_time', 0); //No limit
 
         $feed = Datafeed::where('merchant_id',$id)->first();
@@ -54,7 +57,7 @@ class SSHProductsController extends Controller
         }
 
         /**
-         * Download the latest datafeed from merchant 
+         * Download the latest datafeed from merchant
          * and copy to our newly created folder / server
          */
          copy($url, $dest.'/feed');
@@ -87,10 +90,10 @@ class SSHProductsController extends Controller
         }else{
             $nextId = Product::max('id')+1;
         }
-        
+
         $flag = true;
 
-        
+
         while (($data = fgetcsv($handle, 0, ',')) !== FALSE){
             if($flag) { $flag = false; continue; }
             $isbn = null;
@@ -98,12 +101,12 @@ class SSHProductsController extends Controller
             $gtin = null;
             $upc = null;
             $ean = null;
-            
-                
+
+
                 /**
                  * Now we check if the brand column isset in feed parameters
                  * If isset we check if the value  is in csv file,
-                 * If found we check DB for this value. 
+                 * If found we check DB for this value.
                  * If exists we skip record otherwise add the new brand
                  */
                 if ($feed->column_brand !== null){
@@ -120,12 +123,12 @@ class SSHProductsController extends Controller
                         }
                     }
                 }
-                
+
                     /**
                      * Here we check if this feed is allowed to add new prodcuts to our database
                      * If yes we add product as permitted otherwise we skip this step
                      */
-                    
+
                     //$mpn = @ProductCode::where('mpn','=',$data[$feed->column_mpn])->first();
                     $mpn = DB::table('product_codes')->where('mpn', $data[$feed->column_mpn])->first();
                     //$ean = @ProductCode::where('ean','=',$data[$feed->column_ean])->first();
@@ -136,7 +139,7 @@ class SSHProductsController extends Controller
                     $upc = DB::table('product_codes')->where('upc','=',$data[$feed->column_upc])->first();
 
                 /**
-                 * We check if we can add new products and that the 
+                 * We check if we can add new products and that the
                  * product is not already in our database
                  */
                 if($feed->add_new_products && !$mpn || !$ean || !$gtin || !$upc){
@@ -146,8 +149,8 @@ class SSHProductsController extends Controller
                     }else{
                         $brandId = 0;
                     }
-                        
-                        
+
+
                         $category_id = $data[$feed->column_category_id]; //) || $data[$feed->column_category_id] > 999)?$data[$feed->column_category_id]:30;
 
                         $title = $data[$feed->column_name];
@@ -187,10 +190,10 @@ class SSHProductsController extends Controller
                         $max_price = 0;
                         $brand_id = $brandId;
                         /**
-                         * Add new roduct 
+                         * Add new roduct
                          */
-                        
-                            
+
+
                         if(!is_dir($infile_path)){
                             mkdir($infile_path, 0777, true);
                         }
@@ -198,7 +201,7 @@ class SSHProductsController extends Controller
                         $prods_data = $nextId.'|'.$category_id.'|'.$title.'|'.$slug.'|'.$mpn.'|'.$ean.'|'.$upc.'|'.$gtin.'|'.$isbn.'|'.$description.'|'.$min_price.'|'.$max_price.'|'.$brand_id."\r\n";
                         file_put_contents($product_infile_path, trim($prods_data).PHP_EOL, FILE_APPEND);
                         echo "Product $nextId - $title added.<br/>";
-                        
+
                         /**
                          * Add images
                          */
@@ -209,7 +212,7 @@ class SSHProductsController extends Controller
                             file_put_contents($image_infile_path, trim($image_data).PHP_EOL, FILE_APPEND);
                             echo "Image for product $nextId added.<br/>";
                         }
-                        
+
 
                         /**
                          * Add product codes
@@ -227,22 +230,22 @@ class SSHProductsController extends Controller
                 }else{
                     echo 'No new products added<br/>';
                 }
-        
+
             }
             fclose($handle);
-                    
+
         /**
          * Now lets load_data_infile
          */
-        
+
         $products_file = 'storage/feed/products.csv';
 
         $product_codes_file = 'storage/feed/product_codes.csv';
 
         $images_file = 'storage/feed/images.csv';
 
-        DB::connection()->getpdo()->exec('SET autocommit=0'); 
-        DB::connection()->getpdo()->exec('SET unique_checks=0'); 
+        DB::connection()->getpdo()->exec('SET autocommit=0');
+        DB::connection()->getpdo()->exec('SET unique_checks=0');
         DB::connection()->getpdo()->exec('SET foreign_key_checks=0');
 
         if(file_exists($products_file)){
@@ -251,7 +254,7 @@ class SSHProductsController extends Controller
                 (id,category_id,title,slug,mpn,ean,upc,gtin,isbn,description,min_price,max_price,brand_id,@created_at,@updated_at)
                 SET created_at=NOW(), updated_at=NOW()";
             DB::connection()->getpdo()->exec($prod_query);
-    
+
         }
         if(file_exists($product_codes_file)){
             $prod_codes_query = "LOAD DATA LOCAL INFILE '" . $product_codes_file . "'
@@ -267,15 +270,15 @@ class SSHProductsController extends Controller
                 SET created_at=NOW(), updated_at=NOW()";
             DB::connection()->getpdo()->exec($image_query);
         }
-        DB::connection()->getpdo()->exec('SET autocommit=1'); 
-        DB::connection()->getpdo()->exec('SET unique_checks=1'); 
+        DB::connection()->getpdo()->exec('SET autocommit=1');
+        DB::connection()->getpdo()->exec('SET unique_checks=1');
         DB::connection()->getpdo()->exec('SET foreign_key_checks=1');
 
         /**
-         * Now process the file 
+         * Now process the file
          * Add prices to the database;
          */
-        
+
          @unlink($product_codes_file);
          @unlink($images_file);
          @unlink($products_file);

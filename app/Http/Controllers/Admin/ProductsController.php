@@ -39,7 +39,7 @@ class ProductsController extends Controller
             ->orWhere('isbn', 'like', '%'.$q.'%')
             ->orWhere('description', 'like', '%'.$q.'%')
             ->orderBy('id', 'DESC')
-            ->paginate(10);   
+            ->paginate(10);
         }
         return view('admin.products.index', ['products' => $products->appends(Input::except('page'))])->with('products', $products);
     }
@@ -88,7 +88,7 @@ class ProductsController extends Controller
         $product->description = $request->input('description');
         $product->min_price = (float)$request->input('min_price');
         $product->max_price = (float)$request->input('max_price');
-   
+
         $product->save();
 
         $pc = new ProductCode;
@@ -159,7 +159,7 @@ class ProductsController extends Controller
         $product->save();
         //Set the product minimum and maximum prices
         $this->set_min_max_price($product->id);
-        
+
         $pc = ProductCode::where('product_id',$product->id)->orderBy('id', 'ASC')->first();
             if($pc){
                 $pc->mpn = $product->mpn;
@@ -167,7 +167,7 @@ class ProductsController extends Controller
                 $pc->upc = $product->upc;
                 $pc->gtin = $product->gtin;
                 $pc->isbn = $product->isbn;
-                
+
                 $pc->save();
             }else{
                 $pc = new ProductCode;
@@ -177,10 +177,10 @@ class ProductsController extends Controller
                 $pc->upc = $product->upc;
                 $pc->gtin = $product->gtin;
                 $pc->isbn = $product->isbn;
-                
+
                 $pc->save();
             }
-        
+
 
         return redirect('/admin/products')->with('success', 'Product updated');
     }
@@ -208,7 +208,7 @@ class ProductsController extends Controller
             if(file_exists($image->path)){
                 unlink($image->path);
             }
-            
+
         }
 
         $product->delete();
@@ -251,7 +251,7 @@ class ProductsController extends Controller
             //get the file extension
             $ext = $request->file('file')->getClientOriginalExtension();
             $filename_save = 'product.'.$ext;
-            $file = $request->file('file')->storeAs('public/products', $filename_save); 
+            $file = $request->file('file')->storeAs('public/products', $filename_save);
         }
         $handle = fopen($request->file, 'r');
         $i = 0;
@@ -271,7 +271,7 @@ class ProductsController extends Controller
                 $product = new Product;
                 $nextId = Product::max('id')+1;
                 $brandId = Brand::where('name', $data[4])->first();
-                
+
                 if(isset($data[3])){
                     $product->cat_id = (!is_numeric((int)$data[3]) || (int)$data[3] > 999)?(int)$data[3]:30;
                 }
@@ -334,7 +334,7 @@ class ProductsController extends Controller
 
             return redirect()->back()->with('success', 'Product prices set');
         }
-        
+
     }
 
     /**
@@ -368,7 +368,7 @@ class ProductsController extends Controller
             ->orWhere('gtin', 'like', '%'.$q.'%')
             ->orWhere('isbn', 'like', '%'.$q.'%')
             ->orWhere('description', 'like', '%'.$q.'%')
-            ->paginate(10);  
+            ->paginate(10);
         }
         return view('admin.merge-products.index', ['products' => $products->appends(Input::except('page'))])->with(compact('products'));
     }
@@ -382,14 +382,14 @@ class ProductsController extends Controller
     public function merge_store(Request $request)
     {
         /**
-         * This is the value of the product to 
-         * which the others will be 
+         * This is the value of the product to
+         * which the others will be
          * merged
          */
         $main_product = $request->input('main_product');
         /**
          * This is the value (array)
-         * of products to 
+         * of products to
          * be merged
          */
         $products_to_merge = $request->input('products_to_merge');
@@ -407,7 +407,7 @@ class ProductsController extends Controller
 
         /**
          * Profile product prices
-         * 
+         *
          */
         $this->set_min_max_price($main_product);
 
@@ -416,8 +416,8 @@ class ProductsController extends Controller
             $this->set_min_max_price($p);
         }
 
-        return redirect()->back()->with('success', 'Products merged successfuly');
-        
+        return redirect()->back()->with('success', 'Products merged successfully');
+
     }
     /**
      * Bulk product moving index form
@@ -429,10 +429,12 @@ class ProductsController extends Controller
         $categories = Category::orderBy('title', 'asc')->pluck('title', 'id');
         if(Request()->get('cat') !== null){
             $cat = Request()->get('cat');
-            $products = Product::where('category_id', $cat)->get();  
-        }
-
+           $products = Product::where('category_id', $cat)->get();
         return view('admin.bulk-products.index', ['products' => $products->appends(Input::except('page'))])->with(compact('products', 'categories'));
+
+        }
+        return view('admin.bulk-products.index')->with(compact('products', 'categories'));
+
     }
 
     /**
@@ -442,6 +444,6 @@ class ProductsController extends Controller
     {
         $request->user()->authorizeRoles(['employee', 'manager']);
 
-        return redirect()->back()->with('success', 'Products moved successfuly');
+        return redirect()->back()->with('success', 'Products moved successfully');
     }
 }

@@ -18,8 +18,8 @@
         <th>#</th>
         <th>Merchant ID</th>
         <th>Remote URL</th>
-        <th>Match</th>
-        <th>Add new products</th>
+        <th>Match by</th>
+        <th>Adds new products</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -30,7 +30,7 @@
         <td>{{ $datafeed->merchant_id }}</td>
         <td>{{ str_limit($datafeed->url, 50, '....') }}</td>
         <td>{{ $datafeed->match_by }}</td>
-        <td>{{ $datafeed->add_new_products }}</td>
+        <td>@if($datafeed->add_new_products == 1) {{ 'Yes' }} @else {{ 'No' }} @endif</td>
 
         <td>
           <a class="btn btn-sm btn-outline-info" href="/admin/datafeeds/{{ $datafeed->id }}/edit"><span
@@ -53,7 +53,7 @@
     </tbody>
   </table>
   @else
-  <h1>There are no datafeeds added yet.</h1>
+  <h1>No datafeed found.</h1>
   @endif
 
 

@@ -30,7 +30,7 @@ class Product extends Model
            'products.isbn' => 5,
            'products.gtin' => 2,
            'products.description' => 7,
-           
+
        ],
 
    ];
@@ -48,7 +48,7 @@ class Product extends Model
     {
        return $this->hasOne(ProductImage::class);
     }
-    
+
     public function product_codes()
     {
        return $this->hasMany(ProductCode::class);
@@ -62,6 +62,11 @@ class Product extends Model
     public function alerts()
     {
        return $this->hasMany(Alert::class);
+    }
+
+    public function category()
+    {
+       return $this->belongsTo(Category::class);
     }
 
 }

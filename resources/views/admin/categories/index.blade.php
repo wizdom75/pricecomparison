@@ -47,7 +47,7 @@
       </tr>
       @endforeach
       @else
-      <h1>No Categories Yet</h1>
+      <h1>No category found</h1>
       @endif
 
     </tbody>

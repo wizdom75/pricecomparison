@@ -26,6 +26,10 @@ class PriceUpdatesController extends Controller
      */
     public function run($id)
     {
+        if (!$id || !is_numeric($id)) {
+            return 'No product price feed to run';
+        }
+
         ini_set('max_execution_time', 0); //No limit
 
         $feed = Datafeed::where('merchant_id',$id)->first();
@@ -52,7 +56,7 @@ class PriceUpdatesController extends Controller
         }
 
         /**
-         * Download the latest datafeed from merchant 
+         * Download the latest datafeed from merchant
          * and copy to our newly created folder / server
          */
          //copy($url, $dest.'/feed');
@@ -81,7 +85,7 @@ class PriceUpdatesController extends Controller
          /**
           * No we add prices
           */
-          
+
         $header = null;
         while (($data = fgetcsv($handle, 0, ',')) !== FALSE){
             if($header) { $header = false; continue; }
@@ -123,7 +127,7 @@ class PriceUpdatesController extends Controller
                         }else{
                             $shipping_column = 0.00;
                         }
-                        
+
                         $name_column = $data[$feed->column_name];
                         if($feed->column_promo){
                         $promo_column = $data[$feed->column_promo];
@@ -136,7 +140,7 @@ class PriceUpdatesController extends Controller
                             /**
                              * This is the path to the load data infile
                              */
- 
+
                             $price_path = $infile_path.'/new_'.$mId.'.csv';
 
                             $new_price_data = $newPriceId.'|'.$prod_id.'|'.$mId.'|'.$price_column.'|'.$shipping_column.'|'.$name_column.'|'.$promo_column.'|'.$buy_url_column."\r\n";
@@ -146,7 +150,7 @@ class PriceUpdatesController extends Controller
                             echo 'New price for: <b>'.$name_column.'</b> added £'.number_format($price_column, 2,'.', ' ').' - '.$shipping_column.'<br/>';
 
                             $newPriceId++;
-                            
+
                         }else{
 
                             $update_path = $infile_path.'/old_'.$price->merchant_id.'.csv';
@@ -167,8 +171,8 @@ class PriceUpdatesController extends Controller
         $prices_file = $infile_path.'/new_'.$mId.'.csv';
         $update_prices_file = $infile_path.'/old_'.$mId.'.csv';
 
-        DB::connection()->getpdo()->exec('SET autocommit=0'); 
-        DB::connection()->getpdo()->exec('SET unique_checks=0'); 
+        DB::connection()->getpdo()->exec('SET autocommit=0');
+        DB::connection()->getpdo()->exec('SET unique_checks=0');
         DB::connection()->getpdo()->exec('SET foreign_key_checks=0');
 
         if(file_exists($prices_file)){
@@ -178,7 +182,7 @@ class PriceUpdatesController extends Controller
                 SET created_at=NOW(),updated_at=NOW()";
             DB::connection()->getpdo()->exec($price_query);
         }
-        
+
         if(file_exists($update_prices_file)){
             $update_price_query = "LOAD DATA LOCAL INFILE '" . $update_prices_file . "'
             REPLACE INTO TABLE prices FIELDS TERMINATED BY '|'
@@ -186,14 +190,14 @@ class PriceUpdatesController extends Controller
                 SET updated_at=NOW()";
             DB::connection()->getpdo()->exec($update_price_query);
         }
-        
-    
-        DB::connection()->getpdo()->exec('SET autocommit=1'); 
-        DB::connection()->getpdo()->exec('SET unique_checks=1'); 
+
+
+        DB::connection()->getpdo()->exec('SET autocommit=1');
+        DB::connection()->getpdo()->exec('SET unique_checks=1');
         DB::connection()->getpdo()->exec('SET foreign_key_checks=1');
 
         /**
-         * Now process the file 
+         * Now process the file
          * Add prices to the database;
          */
         if(file_exists($prices_file)){
@@ -203,10 +207,10 @@ class PriceUpdatesController extends Controller
         if(file_exists($update_prices_file)){
             unlink($update_prices_file);
         }
-         
-         
+
+
     }
-    
+
     /**
      * Run all
      */

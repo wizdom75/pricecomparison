@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -103,3 +106,8 @@ Route::get('/admin/prices-ssh-all', 'Admin\PriceUpdatesController@runAll');
 
 Route::get('/admin/products-ssh/{id}/run', 'Admin\SSHProductsController@run');
 Route::get('/admin/products-ssh-all', 'Admin\SSHProductsController@runAll');
+
+/**
+ * Migration route
+ */
+Route::get('/migrate', 'MigrateController@run');

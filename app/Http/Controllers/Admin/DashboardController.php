@@ -13,10 +13,10 @@ use App\Brand;
 
 class DashboardController extends Controller
 {
-    // public function __construct()
-    // {
-    //     // $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +24,7 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        
+
         $request->user()->authorizeRoles(['employee', 'manager']);
 
         $total_products = Product::count();

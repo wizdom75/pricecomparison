@@ -6,7 +6,7 @@
       </div>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
-          
+
             @if (count($users)>0)
               <thead>
                 <tr>
@@ -30,11 +30,11 @@
               </tr>
               @endforeach
             @else
-                <h1>No Users Yet</h1>
+                <h1>No user found</h1>
             @endif
           </tbody>
         </table>
         {{ $users->links() }}
       </div>
-     
+
 @endsection

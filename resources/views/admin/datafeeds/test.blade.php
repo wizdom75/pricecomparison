@@ -5,7 +5,7 @@
         <h1 class="h2">Save Datafeed Settings</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
-              
+
           </div>
         </div>
       </div>
@@ -23,25 +23,25 @@
                 <td>
                   <select id="sel1" name="params[]">
                       <option value="">Select </option>
-                      <option <?=($feed->column_name === $key)?'selected':''?> value="productName">Product Name</option>
-                      <option <?=($feed->column_description === $key)?'selected':''?> value="productDesc">Product Description</option>
-                      <option <?=($feed->column_price === $key)?'selected':''?> value="productPrice">Product Price</option>
-                      <option <?=($feed->column_category_name === $key)?'selected':''?> value="categoryName">Category Name</option>
-                      <option <?=($feed->column_category_id === $key)?'selected':''?> value="categoryId">Category ID</option>
-                      <option <?=($feed->column_shipping === $key)?'selected':''?> value="shipping">Shipping</option>
-                      <option <?=($feed->column_buy_url === $key)?'selected':''?> value="buyUrl">Buy URL</option>
-                      <option <?=($feed->column_promo === $key)?'selected':''?> value="promoText">Promo Text</option>
-                      <option <?=($feed->column_mpn === $key)?'selected':''?> value="mpn">MPN</option>
-                      <option <?=($feed->column_upc === $key)?'selected':''?> value="upc">UPC</option>
-                      <option <?=($feed->column_isbn === $key)?'selected':''?> value="isbn">ISBN</option>
-                      <option <?=($feed->column_ean === $key)?'selected':''?> value="ean">EAN</option>
-                      <option <?=($feed->column_image_url === $key)?'selected':''?> value="image">Image</option>
-                      <option <?=($feed->column_brand === $key)?'selected':''?> value="brand">Brand</option>
+                      <option <?=($feed->column_name            == $key)?'selected':''?> value="productName">Product Name</option>
+                      <option <?=($feed->column_description     == $key)?'selected':''?> value="productDesc">Product Description</option>
+                      <option <?=($feed->column_price           == $key)?'selected':''?> value="productPrice">Product Price</option>
+                      <option <?=($feed->column_category_name   == $key)?'selected':''?> value="categoryName">Category Name</option>
+                      <option <?=($feed->column_category_id     == $key)?'selected':''?> value="categoryId">Category ID</option>
+                      <option <?=($feed->column_shipping        == $key)?'selected':''?> value="shipping">Shipping</option>
+                      <option <?=($feed->column_buy_url         == $key)?'selected':''?> value="buyUrl">Buy URL</option>
+                      <option <?=($feed->column_promo           == $key)?'selected':''?> value="promoText">Promo Text</option>
+                      <option <?=($feed->column_mpn             == $key)?'selected':''?> value="mpn">MPN</option>
+                      <option <?=($feed->column_upc             == $key)?'selected':''?> value="upc">UPC</option>
+                      <option <?=($feed->column_isbn            == $key)?'selected':''?> value="isbn">ISBN</option>
+                      <option <?=($feed->column_ean             == $key)?'selected':''?> value="ean">EAN</option>
+                      <option <?=($feed->column_image_url       == $key)?'selected':''?> value="image">Image</option>
+                      <option <?=($feed->column_brand           == $key)?'selected':''?> value="brand">Brand</option>
                     </select>
                   </td>
                   @endforeach
                 </tr>
-                  
+
                   @for($i=1; $i<10; $i++)
                   <tr>
                     @foreach ($params[$i] as $item)
@@ -49,7 +49,7 @@
                     @endforeach
                   </tr>
                   @endfor
-              
+
             </table>
           </div>
         <div class="form-group">
@@ -66,5 +66,5 @@
 
         {!! Form::close() !!}
       </div>
-     
+
 @endsection

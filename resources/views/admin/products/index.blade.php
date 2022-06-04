@@ -19,7 +19,9 @@
     <thead>
       <tr>
         <th>#</th>
+        <th>Category</th>
         <th>Title</th>
+        <th>Thumbnail</th>
         <th>Product Codes</th>
         <th>Prices</th>
         <th>Actions</th>
@@ -29,7 +31,9 @@
       @foreach ($products as $product)
       <tr>
         <td>{{ $product->id }}</td>
-        <td>{{ str_limit($product->title, 30, '...') }}</td>
+        <td>{{ $product->category->title }}</td>
+        <td>{{ str_limit($product->title, 50, '...') }}</td>
+        <td><img src="{{ url($product->images->path ?? url('img/noimage.png')) }}" class="img-thumbnail" style="width: 180px"></td>
         <td>
           MPN: {{ $product->mpn }}<br />
           EAN: {{ $product->ean }}<br />
@@ -64,7 +68,7 @@
       </tr>
       @endforeach
       @else
-      <h1>No Products Yet</h1>
+      <h1>No product found</h1>
       @endif
     </tbody>
   </table>

@@ -9,7 +9,7 @@
       </div>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
-          
+
             @if (count($pages)>0)
               <thead>
                 <tr>
@@ -32,11 +32,11 @@
               </tr>
               @endforeach
             @else
-                <h1>No Pages Yet</h1>
+                <h1>No page found</h1>
             @endif
           </tbody>
         </table>
         {{ $pages->links() }}
       </div>
-     
+
 @endsection

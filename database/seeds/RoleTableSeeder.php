@@ -1,5 +1,7 @@
 <?php
 
+use App\Role;
+use App\RoleUser;
 use Illuminate\Database\Seeder;
 
 class RoleTableSeeder extends Seeder
@@ -21,7 +23,7 @@ class RoleTableSeeder extends Seeder
       $role_manager->save();
       $role_employee = new Role();
       $role_employee->name = 'customer';
-      $role_employee->description = 'A Customer has access to their own suscriptions';
+      $role_employee->description = 'A Customer has access to their own subscriptions';
       $role_employee->save();
       $role_manager = new Role();
       $role_manager->name = 'merchant';

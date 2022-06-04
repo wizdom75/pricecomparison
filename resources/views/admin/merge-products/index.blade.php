@@ -4,12 +4,12 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Products</h1>
         <div class="mr-2">
-            
+
         </div>
       </div>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
-          
+
             @if (count($products)>0)
             <form method="POST" action="/admin/merge-products">
               {{ csrf_field() }}
@@ -47,12 +47,12 @@
               </tr>
               @endforeach
               <td>
-                  <button type="submit" class="btn btn-sm btn-outline-warning" ><span data-feather="zap"></span>Merge </button>    
+                  <button type="submit" class="btn btn-sm btn-outline-warning" ><span data-feather="zap"></span>Merge </button>
               </td>
-                  
+
               </form>
             @else
-                <h1>No Products Yet</h1>
+                <h1>No product found</h1>
             @endif
           </tbody>
         </table>

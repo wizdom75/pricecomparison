@@ -12,7 +12,7 @@
         </div>
         <div class="form-group">
           {!! Form::label('Category ID:') !!}
-          {!! Form::number('id', $category->id, ['class' => 'form-control'], 'disabled') !!}
+          {!! Form::number('id', $category->id, ['class' => 'form-control', 'disabled']) !!}
         </div>
         <div class="form-group">
           {!! Form::label('Category name:') !!}
@@ -30,10 +30,10 @@
             {!! Form::label('Featured:') !!}
             {!! Form::select('is_featured', [0 => '--- No ---', 1 => '--- Yes ---'], $category->is_featured, ['class' => 'form-control']) !!}
         </div>
-        
+
         {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
 
         {!! Form::close() !!}
       </div>
-     
+
 @endsection

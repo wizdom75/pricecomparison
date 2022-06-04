@@ -14,39 +14,24 @@ class MerchantsController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $merchants = Merchant::orderBy('name', 'asc')->paginate(10);
         if(Request()->get('q') !== null){
             $q = Request()->get('q');
-            $merchants = Merchant::where('name','like', '%'.$q.'%')->paginate(10);  
+            $merchants = Merchant::where('name','like', '%'.$q.'%')->paginate(10);
         }
 
 
         return view('admin.merchants.index', ['merchants' => $merchants->appends(Input::except('page'))])->with('merchants', $merchants);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.merchants.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -64,7 +49,7 @@ class MerchantsController extends Controller
             echo 'This record is a duplicte';
         }else{
 
-        
+
         $merchant = new Merchant;
 
         $merchant->id = $request->input('id');
@@ -97,37 +82,18 @@ class MerchantsController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $merchant = Merchant::find($id);
         return view('admin.merchants.show')->with('merchant', $merchant);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $merchant = Merchant::where('id', $id)->first();
         return view('admin.merchants.edit')->with('merchant', $merchant);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -138,8 +104,6 @@ class MerchantsController extends Controller
             'logo' => 'image|max:1999'
 
         ]);
-
-       // return $request;
 
         $merchant = Merchant::where('id', $id)->first();
 
@@ -164,7 +128,7 @@ class MerchantsController extends Controller
             $logo_path = 'storage/merchants/'.$request->input('id').'/'.$filename_save;
             $merchant->logo = $logo_path;
         }
-        
+
 
         $merchant->save();
         return redirect('/admin/merchants')->with('success', 'Listing '.$merchant->title .' update.');
@@ -206,30 +170,24 @@ class MerchantsController extends Controller
             //get the file extension
             $ext = $request->file('file')->getClientOriginalExtension();
             $filename_save = 'merchants.'.$ext;
-            $file = $request->file('file')->storeAs('public/merchants', $filename_save); 
+            $file = $request->file('file')->storeAs('public/merchants', $filename_save);
         }
         $handle = fopen($request->file, 'r');
-        $i = 0;
+        fgetcsv($handle, 1000, ',');
         while (($data = fgetcsv($handle, 1000, ',')) !== FALSE){
-            if($i === 0){
 
-            }else{
-                $m = Merchant::find($request->affiliate.''.$data[0]);
-                if($m){
-                    echo 'Duplicate record skipped';
-                }else{
-
-                $merchant = new Merchant;
-                $merchant->id = $request->affiliate.''.$data[0];
-                $merchant->user_id = 1;
-                $merchant->name = $data[1];
-                $merchant->logo = $data[2];
-                $merchant->slug = makeSlug($data[1]);
-                $merchant->is_valid = 1;
-                $merchant->save();
-                }
+            if(Merchant::find($request->affiliate.''.$data[0])){
+                echo 'Duplicate record skipped';
+                continue;
             }
-            $i++;
+            $merchant = new Merchant;
+            $merchant->id = $request->affiliate.''.$data[0];
+            $merchant->user_id = 1;
+            $merchant->name = $data[1];
+            $merchant->logo = $data[2];
+            $merchant->slug = makeSlug($data[1]);
+            $merchant->is_valid = 1;
+            $merchant->save();
         }
         fclose($handle);
         return redirect('/admin/merchants')->with('success', 'Merchants successfully imported');

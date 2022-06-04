@@ -1,10 +1,10 @@
 <?php
 
     /**
-     * Method that strips strings of non-alphanumeric 
+     * Method that strips strings of non-alphanumeric
      * characters and turn them into a slug
      * @param $string
-     * 
+     *
      * @return $slug
      */
     function makeSlug($string)
@@ -15,25 +15,34 @@
     /**
      * Get the categories bread crumb
      */
-     
+
     function makeBreadCrumb($id)
     {
-        $cat = App\Category::find($id);
-        if(Request()->slug === $cat->slug){
-            $breadcrumb = "<li class='breadcrumb-item  active'  aria-current='page'>$cat->title</li>";
-        }else{
-            $breadcrumb = "<li class='breadcrumb-item'><a  class='text-muted' href='/c/$cat->slug'>$cat->title</a></li>";
+        if ($id == 0) {
+            return '';
         }
-        
-        if($cat->parent_id !== 0){
-           makeBreadCrumb($cat->parent_id);
 
+        try {
+            $cat = App\Category::find($id);
+            if (Request()->slug === $cat->slug){
+                $breadcrumb = "<li class='breadcrumb-item  active'  aria-current='page'>$cat->title</li>";
+            }else{
+                $breadcrumb = "<li class='breadcrumb-item'><a  class='text-muted' href='/c/$cat->slug'>$cat->title</a></li>";
+            }
+
+            if($cat->parent_id !== 0){
+               makeBreadCrumb($cat->parent_id);
+
+            }
+            print($breadcrumb);
+        } catch (Exception $e) {
+            print($e->getMessage());
         }
-        print($breadcrumb);
+
     }
 
     /**
-     * Get the 
+     * Get the
      */
     function getMerchant($id)
     {

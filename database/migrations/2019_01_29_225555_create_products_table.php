@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -30,7 +31,7 @@ class CreateProductsTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-        DB::statement('ALTER TABLE `products` ADD FULLTEXT full(`title`,`mpn`,`ean`,`upc`,`gtin`,`isbn`,`description`)');
+        // DB::statement('ALTER TABLE `products` ADD FULLTEXT full(`title`,`mpn`,`ean`,`upc`,`gtin`,`isbn`,`description`)');
     }
 
     /**

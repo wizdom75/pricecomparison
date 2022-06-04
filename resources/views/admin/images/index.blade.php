@@ -14,11 +14,12 @@
       </div>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
-          
+
             @if (count($images)>0)
               <thead>
                 <tr>
                   <th>#</th>
+                  <th>Thumbnail</th>
                   <th>Product</th>
                   <th>Merchant</th>
                   <th>Actions</th>
@@ -28,8 +29,9 @@
             @foreach ($images as $image)
               <tr>
                 <td>{{ $image->id }}</td>
-                <td>{{ $image->product_id }}</td>
-                <td>{{ $image->merchant_id }}</td>
+                <td><img src="{{ $image->download_path }}" class="img-thumbnail" style="width: 180px"></td>
+                <td>({{ $image->product_id }}) {{ $image->product->title }}</td>
+                <td>({{ $image->merchant_id }}) {{ $image->merchant->name }}</td>
                 <td>
                   <a class="btn btn-sm btn-outline-warning" href="/admin/image/{{ $image->id }}/download"><span data-feather="download"></span></a>
                   <a class="btn btn-sm btn-outline-danger" href=""><span data-feather="trash"></span></a>
@@ -43,5 +45,5 @@
         </table>
         {{ $images->links() }}
       </div>
-     
+
 @endsection

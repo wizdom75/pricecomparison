@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="table-responsive">
-        
+
             @if (count($prices) > 0)
             <table class="table table-striped table-sm">
                 <thead>
@@ -27,21 +27,21 @@
                   <td>{{ $price->id }}</td>
                   <td>{{ $price->merchant_id }}</td>
                   <td>{{ $price->prod_id }}</td>
-                  
+
                   <td>
                     <a class="btn btn-sm btn-outline-info" href="/admin/prices/{{ $price->id }}/edit"><span data-feather="edit"></span></a>
                     <a class="btn btn-sm btn-outline-danger" href=""><span data-feather="trash"></span></a>
                   </td>
                 </tr>
-              @endforeach  
+              @endforeach
             </tbody>
           </table>
             @else
-                <h1>There are no prices added yet.</h1>
+                <h1>No prices found.</h1>
             @endif
-      
+
 
         {{ $prices->links() }}
       </div>
-     
+
 @endsection

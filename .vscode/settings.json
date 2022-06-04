@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "main",
+            "database": "database/database.sqlite"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:pricecomparison}/database/database.sqlite",
+            "name": "Another"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}

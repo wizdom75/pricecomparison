@@ -25,7 +25,7 @@ class CategoriesController extends Controller
         }else{
             $categories = Category::paginate(10);
         }
-        
+
         return view('admin.categories.index', ['categories' => $categories->appends(Input::except('page'))])->with('categories', $categories);
     }
 
@@ -149,7 +149,7 @@ class CategoriesController extends Controller
             //get the file extension
             $ext = $request->file('file')->getClientOriginalExtension();
             $filename_save = 'cats.'.$ext;
-            $file = $request->file('file')->storeAs('public/categories', $filename_save); 
+            $file = $request->file('file')->storeAs('public/categories', $filename_save);
 
             Category::truncate();
         }
@@ -157,24 +157,16 @@ class CategoriesController extends Controller
         $file = $request->file('file');
         $handle = fopen($file, 'r');
 
-        $i = 0;
+        fgetcsv($handle, 0, ',');
         while (($data = fgetcsv($handle, 0, ',')) !== FALSE){
-
-            if($i === 0){
-
-            }else{
-                $cat = new Category;
-                
-                $cat->id = (int)$data[0];
-                $cat->parent_id = (int)$data[1];
-                $cat->title = $data[2];
-                $cat->slug = makeSlug($data[2]);
-                $cat->blurb = $data[2];
-                $cat->total_products = 0;
-                
-                $cat->save();
-            }
-            $i++;
+            Category::create([
+                'id'                => (int) $data[0],
+                'title'             => $data[1],
+                'slug'              => makeSlug($data[1]),
+                'blurb'             => $data[2],
+                'parent_id'         => (int) $data[3],
+                'total_products'    => 0,
+            ]);
         }
         fclose($handle);
         return redirect('/admin/categories')->with('success', 'Categories successfully imported');

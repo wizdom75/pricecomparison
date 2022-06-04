@@ -13,15 +13,11 @@ use App\Merchant;
 
 class PricesController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $mId = Request()->get('mId');
@@ -29,67 +25,11 @@ class PricesController extends Controller
         return view('admin.prices.index')->with(compact('prices', 'mId'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.prices.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
@@ -117,7 +57,7 @@ class PricesController extends Controller
             //get the file extension
             $ext = $request->file('file')->getClientOriginalExtension();
             $filename_save = $request->mId.'.'.$ext;
-            $file = $request->file('file')->storeAs('storage/products/prices', $filename_save); 
+            $file = $request->file('file')->storeAs('storage/products/prices', $filename_save);
         }
 
         $handle = fopen($request->file, 'r');
@@ -141,7 +81,7 @@ class PricesController extends Controller
                     $product = new Product;
                     $nextId = Product::max('id')+1;
                     $brandId = Brand::where('name', $prod[30])->first();
-                    
+
                     if(isset($prod[11])){
                         $product->category_id = (!is_numeric((int)$prod[11]) || (int)$prod[11] > 999)?(int)$prod[11]:30;
                     }
@@ -180,7 +120,7 @@ class PricesController extends Controller
                     $p = Price::where('product_id', $product->id)->where('merchant_id', 'AW361');
                     if(!$p){
                         //update price
-                        
+
                     }else{
                         //add new price
                         $np = new Price;
@@ -212,7 +152,7 @@ class PricesController extends Controller
 
                     return redirect()->back()->with('success', 'Prices successfully imported');
                }
-               
+
             }
             $i++;
         }
@@ -236,7 +176,7 @@ class PricesController extends Controller
     //             $product = new Product;
     //             $nextId = Product::max('id')+1;
     //             $brandId = Brand::where('name', $data[4])->first();
-                
+
     //             if(isset($data[3])){
     //                 $product->cat_id = (!is_numeric((int)$data[3]) || (int)$data[3] > 999)?(int)$data[3]:30;
     //             }
@@ -274,7 +214,7 @@ class PricesController extends Controller
     //     }
     //     fclose($handle);
     //     return redirect('/admin/products')->with('success', 'Products successfully imported');
-     
+
 
 
 }
