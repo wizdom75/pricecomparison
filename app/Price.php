@@ -11,6 +11,11 @@ class Price extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function merchant()
+    {
+        return $this->belongsTo(Merchant::class);
+    }
+
     public function images()
     {
        return $this->hasMany(ProductImage::class, 'product_id');

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Product;
 use App\Price;
+use App\Product;
 use App\Merchant;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PricesController extends Controller
 {
@@ -20,11 +21,12 @@ class PricesController extends Controller
     {
         $this->prod_id = $prod_id;
 
-        $prices = Merchant::join('prices', function ($join) {
-            $join->on('merchants.id', '=','prices.merchant_id' )
-                 ->where('product_id', $this->prod_id);
-        })->orderByRaw(('amount+shipping'), 'asc')->get();
-        return response($prices, 200);
+       return Merchant::join('prices', function ($join) {
+                    $join->on('merchants.id', '=','prices.merchant_id' )
+                        ->where('product_id', $this->prod_id);
+                })
+                ->orderBy(DB::raw("`amount` + `shipping`"), 'asc')
+                ->get();
     }
 
 }
