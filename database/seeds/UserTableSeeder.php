@@ -13,19 +13,10 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        if ($user = User::find(1)) {
-            $user->update([
-                'name'      => 'admin',
-                'email'     => 'admin@lowprices4u.co.uk',
-                'password'  => Hash::make('password'),
-            ]);
-        } else {
-            User::insertIgnore([
-                'name'      => 'admin',
-                'email'     => 'admin@lowprices4u.co.uk',
-                'password'  => Hash::make('password'),
-            ]);
-        }
-
+        User::insertIgnore([
+            'name'      => 'admin',
+            'email'     => 'admin@lowprices4u.co.uk',
+            'password'  => Hash::make('password'),
+        ]);
     }
 }
