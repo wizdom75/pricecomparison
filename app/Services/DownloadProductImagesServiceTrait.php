@@ -8,7 +8,7 @@ use App\ProductImageLink;
 /**
  * Class DownloadProductImagesService.
  */
-class DownloadProductImagesServiceTrait
+trait DownloadProductImagesServiceTrait
 {
     public function downloadAll()
     {
