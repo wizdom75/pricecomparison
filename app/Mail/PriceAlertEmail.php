@@ -29,7 +29,7 @@ class PriceAlertEmail extends Mailable
      */
     public function build()
     {
-        // return $this->from('notify@lowprices4u.co.uk', 'Notification gang')->view('emails.price_alerts');
-        return $this->view('emails.price_alerts');
+        //return $this->from('notify@lowprices4u.co.uk', 'Notification gang')->view('emails.alerts');
+        return $this->view('emails.alerts');
     }
 }

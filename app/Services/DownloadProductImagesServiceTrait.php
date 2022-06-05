@@ -5,9 +5,6 @@ namespace App\Services;
 use App\ProductImage;
 use App\ProductImageLink;
 
-/**
- * Class DownloadProductImagesService.
- */
 trait DownloadProductImagesServiceTrait
 {
     public function downloadAll()

@@ -16,17 +16,20 @@ trait SendPriceAlertsServiceTrait
             }
             $poroductTitle  = $alert->product->title;
             $productPrice   = $alert->product->min_price;
+            $productUrl     = env('APP_URL').'/compare/'.$alert->product->slug.'/prices';
             echo "Price alert for $poroductTitle sent to $alert->email target price is £$alert->target_price\n";
 
             $arrayEmails = [$alert->email];
             $emailSubject = 'Price drop alert';
-            $emailBody = "Hello,<br> Product ($poroductTitle) price is now £productPrice.";
+            $emailBody = "Product ($poroductTitle) price is now £$productPrice.";
 
-            Mail::send('emails.price_alerts',
-                ['msg' => $emailBody],
+            $this->imagePath = env('APP_URL').'/'.$alert->product->images->path;
+            Mail::send('emails.alerts',
+                ['msg' => $emailBody, 'product_image' => $this->imagePath, 'url' => $productUrl],
                 function($message) use ($arrayEmails, $emailSubject) {
                     $message->to($arrayEmails)
                     ->subject($emailSubject);
+                    // ->embed(public_path() .'/'.$this->imagePath);
                 }
             );
         }

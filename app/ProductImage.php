@@ -8,6 +8,7 @@ class ProductImage extends Model
 {
     protected $fillable = [
         'id',
+        'product_id',
         'path',
         'is_default',
         'is_downloaded',
