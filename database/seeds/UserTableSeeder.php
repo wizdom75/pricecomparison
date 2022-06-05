@@ -13,7 +13,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        User::insertIgnore([
+        User::insertOrIgnore([
             'name'      => 'admin',
             'email'     => 'admin@lowprices4u.co.uk',
             'password'  => Hash::make('password'),
