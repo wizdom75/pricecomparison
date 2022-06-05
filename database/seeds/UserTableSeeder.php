@@ -13,11 +13,19 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        User::updateOrCreate([
-            'id'        => 1,
-            'name'      => 'admin',
-            'email'     => 'admin@lowprices4u.co.uk',
-            'password'  => Hash::make('password'),
-        ]);
+        if ($user = User::find(1)) {
+            $user->update([
+                'name'      => 'admin',
+                'email'     => 'admin@lowprices4u.co.uk',
+                'password'  => Hash::make('password'),
+            ]);
+        } else {
+            User::insertIgnore([
+                'name'      => 'admin',
+                'email'     => 'admin@lowprices4u.co.uk',
+                'password'  => Hash::make('password'),
+            ]);
+        }
+
     }
 }
