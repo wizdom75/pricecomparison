@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductImage extends Model
 {
+    protected $fillable = [
+        'id',
+        'path',
+        'is_default',
+        'is_downloaded',
+    ];
+
     public function product()
     {
         return $this->belongsTo(Product::class);

@@ -31,8 +31,8 @@
       @foreach ($products as $product)
       <tr>
         <td>{{ $product->id }}</td>
-        <td>{{ $product->category->title }}</td>
-        <td>{{ str_limit($product->title, 50, '...') }}</td>
+        <td>{{ $product->category->title ?? ''}}</td>
+        <td>{{ str_limit($product->title ?? '', 50, '...') }}</td>
         <td><img src="{{ url($product->images->path ?? url('img/noimage.png')) }}" class="img-thumbnail" style="width: 180px"></td>
         <td>
           MPN: {{ $product->mpn }}<br />

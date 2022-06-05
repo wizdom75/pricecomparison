@@ -25,11 +25,11 @@ class Category extends Model
 
     public function children()
     {
-        return $this->hasMany('App\Category', 'parent_id');
+        return $this->hasMany('App\Category', 'parent_id', 'id');
     }
     // recursive, loads all descendants
     public function childrenRecursive()
     {
-        return $this->children()->with('childrenRecursive');
+        return $this->children()->with('children');
     }
 }

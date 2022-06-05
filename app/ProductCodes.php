@@ -7,8 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductCodes extends Model
 {
-    public function merchant()
+    protected $fillable = [
+        'product_id',
+        'title',
+        'mpn',
+        'ean',
+        'upc',
+        'gtin',
+        'isbn',
+    ];
+
+    public function product()
     {
-        return $this->hasOne(Product::class);
+        return $this->belongsTo(Product::class);
     }
 }

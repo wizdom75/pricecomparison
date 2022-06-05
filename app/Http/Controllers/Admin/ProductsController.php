@@ -425,15 +425,13 @@ class ProductsController extends Controller
     public function bulk_index(Request $request)
     {
         $request->user()->authorizeRoles(['employee', 'manager']);
-        $products = [];
-        $categories = Category::orderBy('title', 'asc')->pluck('title', 'id');
-        if(Request()->get('cat') !== null){
-            $cat = Request()->get('cat');
-           $products = Product::where('category_id', $cat)->get();
-        return view('admin.bulk-products.index', ['products' => $products->appends(Input::except('page'))])->with(compact('products', 'categories'));
 
-        }
-        return view('admin.bulk-products.index')->with(compact('products', 'categories'));
+        $cat            = request()->get('cat') ?? null;
+        $products       = Product::where('category_id', $cat)->paginate();
+        $categories     = Category::where('parent_id', 0)->with('childrenRecursive')->orderBy('title', 'asc')->get();
+
+
+        return view('admin.bulk-products.index', ['products' => $products->appends(Input::except('page'))])->with(compact('products', 'categories'));
 
     }
 

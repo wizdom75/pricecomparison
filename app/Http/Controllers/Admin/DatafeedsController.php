@@ -299,23 +299,23 @@ class DatafeedsController extends Controller
          * and copy to our newly created folder / server
          */
 
-        // try {
-        //     copy($url, $dest.'/feed');
-        // } catch (Exception $e) {
-        //     return 0;
-        // }
+        try {
+            copy($url, $dest.'/feed');
+        } catch (Exception $e) {
+            return 0;
+        }
         $fname = 'datafeed.csv';
 
-        // /**
-        //  * Unzip / Extract datafeed to $fname and unlink the zip file
-        //  */
-        // $zip = new ZipArchive;
-        // if ($zip->open($dest.'/feed') === TRUE) {
-        //     $zip->renameName($zip->getNameIndex(0), $fname);
-        //     $zip->extractTo($dest, $fname);
-        //     $zip->close();
-        //     unlink($dest.'/feed');
-        // }
+        /**
+         * Unzip / Extract datafeed to $fname and unlink the zip file
+         */
+        $zip = new ZipArchive;
+        if ($zip->open($dest.'/feed') === TRUE) {
+            $zip->renameName($zip->getNameIndex(0), $fname);
+            $zip->extractTo($dest, $fname);
+            $zip->close();
+            unlink($dest.'/feed');
+        }
         /**
          * Open the datafile with fopen and create a handle
          */
@@ -550,9 +550,9 @@ class DatafeedsController extends Controller
         if($new_price){
             DB::table('prices')->insert($new_price);
         }
-        if($update_price){
-            DB::table('prices')->update($update_price);
-        }
+        // if($update_price){
+        //     DB::table('prices')->update($update_price);
+        // }
 
         fclose($handle);
 

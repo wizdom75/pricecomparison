@@ -14,8 +14,9 @@
         "laravel/scout": "^7.1",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.4.0",
-        "unisharp/laravel-ckeditor": "^4.7",
-        "nicolaslopezj/searchable": "1.*"
+        "nicolaslopezj/searchable": "1.*",
+        "timwassenburg/laravel-service-generator": "^1.0",
+        "unisharp/laravel-ckeditor": "^4.7"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

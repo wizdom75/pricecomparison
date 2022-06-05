@@ -4,7 +4,7 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h4">Bulk products move</h1>
         <div class="mr-2">
-            
+
         </div>
       </div>
       <div class="table-responsive">
@@ -14,13 +14,25 @@
                 {!! Form::open(['action' => 'Admin\ProductsController@store', 'method' => 'GET']) !!}
                 <div class="form-group">
                   {!! Form::label('Select products from:') !!}
-                  {!! Form::select('subcat',$categories, null, ['class' => 'form-control']); !!}
+                  {!! Form::select('subcat',$categories, null, ['class' => 'form-control', 'onChange' => 'gotoPage(this)']); !!}
+                  <div class="col-md-6">
+                    <h3>Category List</h3>
+                  <ul id="tree1">
+                      @foreach($categories as $category)
+                          <li>
+                              {{ $category->title }}
+                              @if(count($category->children))
+                                  @include('admin.bulk-products.managed-child',['children' => $category->children])
+                              @endif
+                          </li>
+                      @endforeach
+                  </ul>
                 </div>
                 {!! Form::close() !!}
               <th>Move to:</th>
             </tr>
           </thead>
-          
+
             @if (count($products)>0)
             <form method="POST" action="/admin/bulk-products">
               {{ csrf_field() }}
@@ -59,9 +71,9 @@
               </tr>
               @endforeach
               <td>
-                  <button type="submit" class="btn btn-sm btn-outline-warning" ><span data-feather="zap"></span>Merge </button>    
+                  <button type="submit" class="btn btn-sm btn-outline-warning" ><span data-feather="zap"></span>Merge </button>
               </td>
-                  
+
               </form>
             @else
                 <p>Select category to choose products to move</p>
@@ -77,5 +89,11 @@
                 $(e.target).closest('form').submit() // Post the surrounding form
             }
         });
+
+        function gotoPage(id)
+        {
+            window.location = '/admin/bulk-products?cat=' + id.value;
+        }
+
     </script>
 @endsection

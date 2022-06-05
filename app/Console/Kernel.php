@@ -26,6 +26,12 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        $schedule->command('update:prices')->daily();
+        $schedule->command('send:email_alerts')->dailyAt('08:30');
+        $schedule->command('download:images')->dailyAt('06:00');
+        $schedule->command('delete:old_prices')->weekly();
+        $schedule->command('delete:old_products')->monthly();
     }
 
     /**
