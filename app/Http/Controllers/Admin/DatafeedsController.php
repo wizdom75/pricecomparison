@@ -197,58 +197,76 @@ class DatafeedsController extends Controller
     public function testCreate(Request $request, $id)
     {
         $feed = Datafeed::find($id);
-
+        $feed->column_isbn = '';
         foreach($request->params as $key => $value){
             if(isset($value)){
                 switch ($value) {
                     case 'productName':
-                        $feed->column_name = $key;
+                        $productName = $key;
                         break;
                     case 'productDesc':
-                        $feed->column_description = $key;
+                        $productDesc = $key;
                         break;
                     case 'productPrice':
-                        $feed->column_price = $key;
+                        $productPrice = $key;
                         break;
                     case 'categoryName':
-                        $feed->column_category_name = $key;
+                        $categoryName = $key;
                         break;
                     case 'categoryId':
-                        $feed->column_category_id = $key;
+                        $categoryId = $key;
                         break;
                     case 'shipping':
-                        $feed->column_shipping = $key;
+                        $shipping = $key;
                         break;
                     case 'buyUrl':
-                        $feed->column_buy_url = $key;
+                        $buyUrl = $key;
                         break;
                     case 'promoText':
-                        $feed->column_promo = $key;
+                        $promoText = $key;
                         break;
                     case 'mpn':
-                        $feed->column_mpn = $key;
+                        $mpn = $key;
                         break;
                     case 'upc':
-                        $feed->column_upc = $key;
+                        $upc = $key;
                         break;
                     case 'isbn':
-                        $feed->column_isbn = $key;
+                        $isbn = $key;
                         break;
                     case 'ean':
-                        $feed->column_ean = $key;
+                        $ean = $key;
                         break;
                     case 'image':
-                        $feed->column_image_url = $key;
+                        $image = $key;
                         break;
                     case 'brand':
-                        $feed->column_brand = $key;
+                        $brand = $key;
                         break;
                 }
             }
         }
-        $feed->add_new_products = $request->add_new_products;
-        $feed->match_by = $request->match_by;
+
+
+        $feed->column_name          = $productName ?? '';
+        $feed->column_description   = $productDesc ?? '';
+        $feed->column_price         = $productPrice ?? '';
+        $feed->column_category_name = $categoryName ?? '';
+        $feed->column_category_id   = $categoryId ?? '';
+        $feed->column_shipping      = $shipping ?? '';
+        $feed->column_buy_url       = $buyUrl ?? '';
+        $feed->column_promo         = $promoText ?? '';
+        $feed->column_mpn           = $mpn ?? '';
+        $feed->column_upc           = $upc ?? '';
+        $feed->column_isbn          = $isbn ?? '';
+        $feed->column_ean           = $ean ?? '';
+        $feed->column_image_url     = $image ?? '';
+        $feed->column_brand         = $brand ?? '';
+        $feed->add_new_products     = $request->add_new_products;
+        $feed->match_by             = $request->match_by;
+
         $feed->save();
+
         return redirect('/admin/datafeeds')->with('success', 'Datafeed Parameters Added Successfully!');
     }
 
