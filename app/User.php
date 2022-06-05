@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'id', 'name', 'email', 'password',
     ];
 
     /**
@@ -42,13 +42,13 @@ class User extends Authenticatable
     public function authorizeRoles($roles)
     {
         if (is_array($roles)) {
-            return $this->hasAnyRole($roles) || 
+            return $this->hasAnyRole($roles) ||
                 abort(401, 'This action is unauthorized.');
         }
-        return $this->hasRole($roles) || 
+        return $this->hasRole($roles) ||
             abort(401, 'This action is unauthorized.');
     }
-    
+
     /**
     * Check multiple roles
     * @param array $roles
