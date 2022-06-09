@@ -78,12 +78,12 @@
               Users
             </a>
           </li>
-          {{-- <li class="nav-item">
-            <a class="nav-link {{ Request::is('admin/reports') || Request::is('admin/reports/*')?'active':'' }}" href="{{ url('/admin/reports') }}">
-              <span data-feather="bar-chart-2"></span>
-              Reports
+          <li class="nav-item">
+            <a class="nav-link {{ Request::is('admin/alerts') || Request::is('admin/alerts/*')?'active':'' }}" href="{{ url('/admin/alerts') }}">
+              <span data-feather="bell"></span>
+              Alerts
             </a>
-          </li> --}}
+          </li>
           <li class="nav-item">
             <a class="nav-link {{ Request::is('admin/pages') || Request::is('admin/pages/*')?'active':'' }}" href="{{ url('/admin/pages') }}">
               <span data-feather="file"></span>

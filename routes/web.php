@@ -72,7 +72,7 @@ Route::get('/admin/image/{id}/download', 'Admin\ImagesController@download');
 Route::get('/admin/images/download-all', 'Admin\ImagesController@downloadAll');
 Route::get('/admin/images/force-download-all', 'Admin\ImagesController@forceDownloadAll');
 Route::resource('/admin/images', 'Admin\ImagesController');
-
+Route::resource('/admin/alerts', 'Admin\AlertsController');
 
 /**
  * Admin routes for processing CSV files
