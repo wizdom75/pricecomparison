@@ -28,10 +28,10 @@ class DeleteOldPrices extends Command
      *
      * @return void
      */
-    public function __construct(UpdatePriceService $service)
+    public function __construct()
     {
         parent::__construct();
-        $this->service = $service;
+        $this->service = new UpdatePriceService;
     }
 
     /**
@@ -44,6 +44,14 @@ class DeleteOldPrices extends Command
         $this->delete();
         echo "Setting mix and max prices for products\n";
         $this->service->setMinAndMaxPriceForAllProducts();
+        echo "Setting mix and max prices for products completed\n";
+    }
+
+    public function __invoke(UpdatePriceService $service)
+    {
+        $this->delete();
+        echo "Setting mix and max prices for products\n";
+        $service->setMinAndMaxPriceForAllProducts();
         echo "Setting mix and max prices for products completed\n";
     }
 }

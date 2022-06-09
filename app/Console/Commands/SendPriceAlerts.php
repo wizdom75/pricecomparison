@@ -27,18 +27,9 @@ class SendPriceAlerts extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __invoke()
     {
-        parent::__construct();
+        return  $this->sendPriceAlerts();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
-    {
-        $this->sendPriceAlerts();
-    }
 }

@@ -3,6 +3,7 @@
 /public/storage
 /storage/*.key
 /storage/autofeeds
+/storage/products
 /vendor
 .env
 .phpunit.result.cache

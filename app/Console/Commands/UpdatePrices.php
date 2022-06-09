@@ -26,10 +26,10 @@ class UpdatePrices extends Command
      *
      * @return void
      */
-    public function __construct(UpdatePriceService $service)
+    public function __construct()
     {
         parent::__construct();
-        $this->service = $service;
+        $this->service = new UpdatePriceService;
     }
 
     /**
@@ -43,6 +43,20 @@ class UpdatePrices extends Command
         echo "Updating prices by datafeed\n";
 
          $this->service->run($ids);
+
+         echo "Price updating is complete\n";
+
+         echo "Setting mix and max prices for products\n";
+         $this->service->setMinAndMaxPriceForAllProducts();
+         echo "Setting mix and max prices for products completed\n";
+    }
+
+    public function __invoke(UpdatePriceService $service)
+    {
+        $this->service = $service;
+        echo "Updating prices by datafeed\n";
+
+         $this->service->run([]);
 
          echo "Price updating is complete\n";
 

@@ -2,7 +2,12 @@
 
 namespace App\Console;
 
+use App\Console\Commands\UpdatePrices;
+use App\Console\Commands\DeleteOldPrices;
+use App\Console\Commands\SendPriceAlerts;
+use App\Console\Commands\DeleteOldProducts;
 use Illuminate\Console\Scheduling\Schedule;
+use App\Console\Commands\DownloadProductImages;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -24,14 +29,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
-
-        $schedule->command('update:prices')->daily();
-        $schedule->command('send:email_alerts')->dailyAt('08:30');
-        $schedule->command('download:images')->dailyAt('06:00');
-        $schedule->command('delete:old_prices')->weekly();
-        $schedule->command('delete:old_products')->monthly();
+        $schedule->call(new SendPriceAlerts)->dailyAt('08:30');
+        $schedule->call(new DownloadProductImages)->dailyAt('06:00');
+        $schedule->call(new DeleteOldProducts)->monthly();
+        $schedule->call(new DeleteOldPrices)->monthly();
+        $schedule->call(new UpdatePrices)->daily();
     }
 
     /**

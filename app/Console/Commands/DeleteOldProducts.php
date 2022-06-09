@@ -24,23 +24,13 @@ class DeleteOldProducts extends Command
     protected $description = 'Command description';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct(UpdatePriceService $service)
-    {
-        parent::__construct();
-        $this->service = $service;
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
+    public function __invoke(UpdatePriceService $service)
     {
+        $this->service = $service;
         $this->delete();
         echo "Setting mix and max prices for products\n";
         $this->service->setMinAndMaxPriceForAllProducts();
