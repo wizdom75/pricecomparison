@@ -143,7 +143,7 @@ class UpdatePriceService
                         'id'            => $new_product_id,
                         'category_id'   => $data[$column_category_id],
                         'title'         => $data[$column_name],
-                        'slug'          => Str::snake(strtolower($data[$column_name])),
+                        'slug'          => $new_product_id.'-'.Str::snake(strtolower($data[$column_name])),
                         'mpn'           => $data[$column_mpn] ?? NULL,
                         'ean'           => $data[$column_ean] ?? NULL,
                         'upc'           => $data[$column_upc] ?? NULL,
