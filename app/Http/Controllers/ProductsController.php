@@ -44,9 +44,9 @@ class ProductsController extends Controller
 
     /**
      * Redirect to merchant
-     * 
+     *
      * @param int $id
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function goToStore($id)
@@ -79,7 +79,7 @@ class ProductsController extends Controller
     }
 
     /**
-     * Get the product and show 
+     * Get the product and show
      * @param $id
      * @return json object
      */
@@ -88,9 +88,9 @@ class ProductsController extends Controller
         $product = Product::with('images')->find($id);
             return response()->json($product, 200);
      }
-    
+
      /**
-     * Get the product images and show 
+     * Get the product images and show
      * @param $id
      * @return json object
      */
@@ -107,10 +107,11 @@ class ProductsController extends Controller
      */
     public function api_category_products($cat_id)
     {
-        $products = Product::where('category_id', $cat_id)->with('images')->paginate(16);
+        $categories = Category::find($cat_id)->childrenRecursive->pluck('id')->toArray();
+        $products = Product::whereIn('category_id', $categories)->with('images')->paginate(16);
         return response($products, 200);
     }
-    
+
     /**
      * Get products for a brand
      * @param $brand_id
@@ -136,7 +137,7 @@ class ProductsController extends Controller
         ->groupBy('products.id')->orderBy('total', 'desc')
         ->take(4)
         ->get();
- 
+
         $c = View::groupBy('product_id')
         ->selectRaw('count(*) as total, product_id')->orderBy('total', 'desc')->get();
 
@@ -182,7 +183,7 @@ class ProductsController extends Controller
         //dd($cats);
 
             $products = Product::whereIn('category_id',$cats)->with('images')->take(10)->get();
-        
+
         return response($products, 200);
     }
 }

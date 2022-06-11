@@ -32,4 +32,16 @@ class Category extends Model
     {
         return $this->children()->with('children');
     }
+
+    // return one level of child items
+    public function items()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    // recursive relationship
+    public function childItems()
+    {
+        return $this->hasMany(Category::class, 'parent_id')->with('items');
+    }
 }

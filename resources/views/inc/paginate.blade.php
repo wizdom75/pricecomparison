@@ -9,10 +9,10 @@
 
                 <li class="page-total">Page @{{pagination.current_page}} of @{{pagination.last_page }}</li>
 
-                <li class="page-item next" v-show="pagination.next_page_url">
+                <li class="page-item next" >
                         <a class="page-scroll page-link" v-on:click="getResults(pagination.next_page_url)" >></a>
                 </li>
-                <li class="page-item next" v-show="pagination.next_page_url">
+                <li class="page-item next" >
                         <a class="page-scroll page-link" v-on:click="getResults(pagination.last_page_url)" >>></a>
                 </li>
         </ul>
