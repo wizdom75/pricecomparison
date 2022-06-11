@@ -187,7 +187,7 @@ class UpdatePriceService
                         $product_code->product_id,
                         $merchant_id,
                         $data[$column_price],
-                        $data[$column_shipping] ?? '',
+                        floatval($data[$column_shipping]) ?? '',
                         $data[$column_name],
                         $data[$column_promo] ?? '',
                         $data[$column_buy_url]

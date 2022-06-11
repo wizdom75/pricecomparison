@@ -31,4 +31,9 @@ class DownloadProductImages extends Command
     {
         $this->downloadAll();
     }
+
+    public function handle()
+    {
+        $this->downloadAll();
+    }
 }
