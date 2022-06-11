@@ -73,6 +73,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link {{ Request::is('admin/prices-csv') || Request::is('admin/prices') || Request::is('admin/prices/*')?'active':'' }}" href="{{ url('/admin/prices') }}">
+              <span data-feather="shopping-cart"></span>
+              Prices
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link {{ Request::is('admin/users') || Request::is('admin/users/*')?'active':'' }}" href="{{ url('/admin/users') }}">
               <span data-feather="users"></span>
               Users

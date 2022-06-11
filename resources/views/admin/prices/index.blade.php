@@ -5,7 +5,7 @@
         <h1 class="h2">Prices</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="mr-2">
-            <a href='{{ url("/admin/prices-csv?mId=$mId") }}' class="btn btn-primary">Import prices from CSV</a>
+
           </div>
         </div>
       </div>
@@ -16,8 +16,11 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>MerchantId</th>
-                    <th>ProductId</th>
+                    <th>Merchant</th>
+                    <th>Product</th>
+                    <th>Last update</th>
+                    <th>Price</th>
+                    <th>Shipping</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -25,8 +28,11 @@
               @foreach ($prices as $price)
                 <tr>
                   <td>{{ $price->id }}</td>
-                  <td>{{ $price->merchant_id }}</td>
-                  <td>{{ $price->prod_id }}</td>
+                  <td>{{ $price->merchant->name }}</td>
+                  <td>{{ $price->product->title }}</td>
+                  <td>{{ $price->updated_at }}</td>
+                  <td>£{{ $price->amount }}</td>
+                  <td>£{{ $price->shipping }}</td>
 
                   <td>
                     <a class="btn btn-sm btn-outline-info" href="/admin/prices/{{ $price->id }}/edit"><span data-feather="edit"></span></a>
