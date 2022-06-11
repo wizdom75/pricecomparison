@@ -27,6 +27,8 @@ class CategoriesController extends Controller
      */
     public function show($slug)
     {
+        // dd(Category::where('parent_id', 0)->with('childItems')->pluck('id'));
+        // dd(array_diff(Category::find(4)->childrenRecursive->pluck('id')->toArray(), [0]));
         $category = Category::where('slug', $slug)->first();
         return view('shopfront.categories.show')->with(compact('category'));
     }
