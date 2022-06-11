@@ -2,7 +2,7 @@
 /public/hot
 /public/storage
 /storage/*.key
-/storage/autofeeds/*/*
+/autofeeds/*/*
 /storage/products
 /vendor
 .env
@@ -13,3 +13,4 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 laravel.log
+/storage/autofeeds/AW361/autofeed.csv
