@@ -74,7 +74,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link {{ Request::is('admin/prices-csv') || Request::is('admin/prices') || Request::is('admin/prices/*')?'active':'' }}" href="{{ url('/admin/prices') }}">
-              <span data-feather="shopping-cart"></span>
+              <span data-feather="dollar-sign"></span>
               Prices
             </a>
           </li>
