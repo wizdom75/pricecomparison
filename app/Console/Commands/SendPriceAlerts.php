@@ -32,4 +32,9 @@ class SendPriceAlerts extends Command
         return  $this->sendPriceAlerts();
     }
 
+    public function handle()
+    {
+        return  $this->sendPriceAlerts();
+    }
+
 }
