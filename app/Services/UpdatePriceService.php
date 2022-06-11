@@ -51,7 +51,10 @@ class UpdatePriceService
 
     protected function productExists($data, $match_by, $column)
     {
-      return ProductCodes::where($match_by, $data[$column])->first();
+        if (is_null($data[$column])) {
+            return null;
+        }
+        return ProductCodes::where($match_by, $data[$column])->first();
     }
 
     protected function getPrice($merchant_id, $product_id)
@@ -187,7 +190,7 @@ class UpdatePriceService
                         $product_code->product_id,
                         $merchant_id,
                         $data[$column_price],
-                        floatval($data[$column_shipping]) ?? '',
+                        floatval($data[$column_shipping] ?? ''),
                         $data[$column_name],
                         $data[$column_promo] ?? '',
                         $data[$column_buy_url]
