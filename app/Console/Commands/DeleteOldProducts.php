@@ -36,4 +36,13 @@ class DeleteOldProducts extends Command
         $this->service->setMinAndMaxPriceForAllProducts();
         echo "Setting mix and max prices for products completed\n";
     }
+
+    public function handle()
+    {
+        $this->service = new UpdatePriceService;
+        $this->delete();
+        echo "Setting mix and max prices for products\n";
+        $this->service->setMinAndMaxPriceForAllProducts();
+        echo "Setting mix and max prices for products completed\n";
+    }
 }
