@@ -32,10 +32,14 @@
         <td>
           <a class="btn btn-sm btn-outline-info" href="/admin/categories/{{ $category->id }}/edit"><span
               data-feather="edit"></span></a>
-          {{-- <a href=""><span data-feather="zap"></a></span>
+          <a href=""><span data-feather="zap"></a></span>
                   <a href=""><span data-feather="dollar-sign"></span></a>
-                  <a href=""><span data-feather="activity"></span></a> --}}
-          {{-- <a class="btn btn-sm btn-outline-danger" href=""><span data-feather="trash"></span></a> --}}
+                  <a href=""><span data-feather="activity"></span></a>
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitches">
+                    <label class="custom-control-label" for="customSwitches">Toggle this switch element</label>
+                  </div>
+          <a class="btn btn-sm btn-outline-danger" href=""><span data-feather="trash"></span></a>
         </td>
         <td>
           <form method="POST" action="/admin/categories/{{ $category->id }}">

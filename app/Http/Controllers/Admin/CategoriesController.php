@@ -23,7 +23,7 @@ class CategoriesController extends Controller
         if(Request()->get('q')){
             $categories = Category::where('title', 'like', '%'.Request()->get('q').'%')->paginate(10);
         }else{
-            $categories = Category::paginate(10);
+            $categories = Category::orderBy('parent_id', 'ASC')->paginate(10);
         }
 
         return view('admin.categories.index', ['categories' => $categories->appends(Input::except('page'))])->with('categories', $categories);
@@ -105,7 +105,6 @@ class CategoriesController extends Controller
             'slug' => 'required:max:100'
         ]);
         $category = Category::find($id);
-        $category->id = (int)$request->input('id');
         $category->parent_id = (int)$request->input('parent_id');
         $category->title = $request->input('title');
         $category->slug = makeSlug($request->input('slug'));
