@@ -197,7 +197,7 @@ class DatafeedsController extends Controller
     public function testCreate(Request $request, $id)
     {
         $feed = Datafeed::find($id);
-        $feed->column_isbn = '';
+        $feed->column_isbn = null;
         foreach($request->params as $key => $value){
             if(isset($value)){
                 switch ($value) {
@@ -248,20 +248,20 @@ class DatafeedsController extends Controller
         }
 
 
-        $feed->column_name          = $productName ?? '';
-        $feed->column_description   = $productDesc ?? '';
-        $feed->column_price         = $productPrice ?? '';
-        $feed->column_category_name = $categoryName ?? '';
-        $feed->column_category_id   = $categoryId ?? '';
-        $feed->column_shipping      = $shipping ?? '';
-        $feed->column_buy_url       = $buyUrl ?? '';
-        $feed->column_promo         = $promoText ?? '';
-        $feed->column_mpn           = $mpn ?? '';
-        $feed->column_upc           = $upc ?? '';
-        $feed->column_isbn          = $isbn ?? '';
-        $feed->column_ean           = $ean ?? '';
-        $feed->column_image_url     = $image ?? '';
-        $feed->column_brand         = $brand ?? '';
+        $feed->column_name          = $productName ?? null;
+        $feed->column_description   = $productDesc ?? null;
+        $feed->column_price         = $productPrice ?? null;
+        $feed->column_category_name = $categoryName ?? null;
+        $feed->column_category_id   = $categoryId ?? null;
+        $feed->column_shipping      = $shipping ?? null;
+        $feed->column_buy_url       = $buyUrl ?? null;
+        $feed->column_promo         = $promoText ?? null;
+        $feed->column_mpn           = $mpn ?? null;
+        $feed->column_upc           = $upc ?? null;
+        $feed->column_isbn          = $isbn ?? null;
+        $feed->column_ean           = $ean ?? null;
+        $feed->column_image_url     = $image ?? null;
+        $feed->column_brand         = $brand ?? null;
         $feed->add_new_products     = $request->add_new_products;
         $feed->match_by             = $request->match_by;
 

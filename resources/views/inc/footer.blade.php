@@ -19,9 +19,9 @@
           <br>
           <br>
           
-          <p class="muted">Since 2019, Lowprices4u.co.uk has helped thousands of bargain hunters find the best products at the best prices.</p>
+          <p class="muted">Since 2019, LowPrices4u.co.uk has helped thousands of bargain hunters find the best products at the best prices.</p>
 
-          <p class="muted">Lowprices4u.co.uk is completely independent and free to use. Our vision is to be someone that you can always count on when comparing products and prices.</p>
+          <p class="muted">LowPrices4u.co.uk is completely independent and free to use. Our vision is to be someone that you can always count on when comparing products and prices.</p>
 
         </div>
         <!-- Grid column -->
@@ -83,7 +83,7 @@
     <!-- Footer Links -->
 
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">{{ config('app.name', 'LowPrices4u') }} © 2019
+    <div class="footer-copyright text-center py-3">{{ config('app.name', 'LowPrices4u') }} © {{ date('Y')}}
     </div>
     <!-- Copyright -->
     <div class="text-right">

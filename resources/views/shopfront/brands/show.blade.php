@@ -30,7 +30,7 @@
                 </section>
                 </div>
                     
-                    <script type="text/javascript">
+                    <script type="application/javascript">
                     
                         new Vue({
                         el: '#brand_products',

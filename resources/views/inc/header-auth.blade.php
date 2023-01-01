@@ -30,6 +30,13 @@
                     My Account
                 </a>
             </li>
+            @if(str_contains(Auth::user()->email, 'lowprices4u.co.uk'))
+            <li class="nav-item">
+                <a class="dropdown-item" href="/admin">
+                    Admin
+                </a>
+            </li>
+           @endif
 
                 <li class="nav-item">
                     <a class="dropdown-item" href="{{ route('logout') }}"

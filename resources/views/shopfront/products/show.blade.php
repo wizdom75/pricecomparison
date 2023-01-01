@@ -49,7 +49,7 @@
                         <div class="card-body p-0 row mb-0">
 
                             <div class="col-md-2 col-3">
-                                <img class="price-logo" v-if="price.logo" v-bind:src="'/' + price.logo">
+                                <img class="price-logo" v-if="price.logo" v-bind:src=" price.logo">
                                 <h6 class="text-muted small"> @{{price.name}}</h6>
                             </div>
                             <div class="col-md-4 col-9">
@@ -80,7 +80,7 @@
         </section>
     </div>
 
-    <script type="text/javascript">
+    <script type="application/javascript">
         new Vue({
                     el: '#product',
                     data () {

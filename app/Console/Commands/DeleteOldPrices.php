@@ -42,16 +42,16 @@ class DeleteOldPrices extends Command
     public function handle()
     {
         $this->delete();
-        echo "Setting mix and max prices for products\n";
+        echo "Setting min and max prices for products\n";
         $this->service->setMinAndMaxPriceForAllProducts();
-        echo "Setting mix and max prices for products completed\n";
+        echo "Setting min and max prices for products completed\n";
     }
 
     public function __invoke(UpdatePriceService $service)
     {
         $this->delete();
-        echo "Setting mix and max prices for products\n";
+        echo "Setting min and max prices for products\n";
         $service->setMinAndMaxPriceForAllProducts();
-        echo "Setting mix and max prices for products completed\n";
+        echo "Setting min and max prices for products completed\n";
     }
 }

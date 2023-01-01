@@ -32,7 +32,7 @@
 @endif
 
 </div>
-<script type="text/javascript">
+<script type="application/javascript">
 
     new Vue({
     el: '#products',

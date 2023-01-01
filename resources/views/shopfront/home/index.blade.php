@@ -53,7 +53,7 @@
 
 
 
-<script type="text/javascript">
+<script type="application/javascript">
     new Vue({
         el: '#deals',
         data () {
