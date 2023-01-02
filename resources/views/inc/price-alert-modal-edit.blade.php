@@ -29,7 +29,7 @@
               </div>
               <div class="col-6">
                   <img src="/{{App\ProductImage::where('product_id', $alert->product_id)->first()->path}}" class="alert-image">
-                  <span class="small mt-2 text-teal" v-html="product.title"></span>
+                  <span class="small mt-2 text-teal" >{{ $alert->product->title }}</span>
                 </div>
                 <div class="form-group col-12 mt-2">
                     <label class="text-muted modal-title  small text-uppercase" for="email_alert">2. Enter your email address</label>

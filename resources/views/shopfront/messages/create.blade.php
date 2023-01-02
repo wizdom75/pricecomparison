@@ -88,7 +88,7 @@
     
         </div>
 </div>
-<script>
+<script type="aaplication/javascript">
 $(function () {
 
 // init the validator
