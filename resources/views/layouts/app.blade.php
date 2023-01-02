@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-site-verification" content="Iwl2FVH7KZ-_-rB9OPefqv3dM25sZ4Z8uuNHjUc7_DI" />
+    <!-- Start cookieyes banner --> 
+    <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/6177e400814a6f2abeee612e/script.js"></script> 
+    <!-- End cookieyes banner -->
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- <title>{{ config('app.name', 'Lowestprices4u.co.uk') }}</title> --}}
@@ -34,9 +37,6 @@
             
         </main>
         @include('inc.footer')
-        <!-- Start cookieyes banner --> 
-        <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/6177e400814a6f2abeee612e/script.js"></script> 
-        <!-- End cookieyes banner -->
     </div>
     
 </body>
