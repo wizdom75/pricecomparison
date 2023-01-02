@@ -34,6 +34,9 @@
             
         </main>
         @include('inc.footer')
+        <!-- Start cookieyes banner --> 
+        <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/6177e400814a6f2abeee612e/script.js"></script> 
+        <!-- End cookieyes banner -->
     </div>
     
 </body>
